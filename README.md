@@ -10,7 +10,9 @@ DA FASTEST
 - No Dependencies
 #### How to use:
 `#define MAX_ENTITIES 100` (default: 64)
+
 `#define MAX_COMPONENTS 10` (default: 32)
+
 `#include "6ecs9.h"`
 #### Important:
 for now the maximum components can be used is 64
