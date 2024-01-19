@@ -10,8 +10,8 @@ DA FASTEST
 - No Dependencies
 #### How to use:
 ```c
-#define MAX_ENTITIES 100 // (default: 64)
-#define MAX_COMPONENTS 10 // (default: 32)
+#define MAX_ENTITIES 100 (default: 64)
+#define MAX_COMPONENTS 10 (default: 32)
 #include "6ecs9.h"
 ```
 #### Important:
@@ -19,6 +19,8 @@ for now the maximum components can be used is 64
 ima work on it to handle more than 64
 #### Example:
 ```c
+#define MAX_ENTITIES 10
+#define MAX_COMPONENTS 4
 #include "6ecs9.h"
 
 newCompStruct(Position, { float x, y; }); // custom struct
@@ -66,7 +68,7 @@ int main(void)
 
 	newEntity()
 		is(Player) // is() for props
-		with(Position, {0.0f, 0.0f}) // with for comps
+		with(Position, {0.0f, 0.0f}) // with() for components
 		with(Sprite, playerSprite);
 	
 	while (!WindowShouldClose())
@@ -79,3 +81,7 @@ int main(void)
 ```
 
 ## you woudnt find library better den dis 
+go look at dis [benchmark](https://github.com/abeimler/ecs_benchmark)
+you gon find that PicoECS is the fastest the most of the time
+i did sum benchmarks
+6ecs9 is 2.5x faster than PicoECS
