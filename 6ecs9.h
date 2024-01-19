@@ -17,27 +17,27 @@ static unsigned long long EntityComponents[MAX_ENTITIES]={};
 static unsigned int numComponents=1u;
 static unsigned int EntityComponents[MAX_ENTITIES]={};
 #endif
-#define newCompStruct(name,...) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}typedef struct __VA_ARGS__ name##_CompType;static name##_CompType name##_Arr[MAX_ENTITIES]
-#define newComp(name,type) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}typedef type name##_CompType;static name##_CompType name##_Arr[MAX_ENTITIES]
+#define newCompStruct(name,...) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}typedef struct __VA_ARGS__ name##_CompType;static name##_CompType _##name##_Arr[MAX_ENTITIES]
+#define newComp(name,type) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}typedef type name##_CompType;static name##_CompType _##name##_Arr[MAX_ENTITIES]
 #define newProp(name) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}
 #define newEntity() ++nextEntity;Entities[nextEntity]=1u
 #define removeEntity(e) Entities[e]=0u
-#define with(name,...) ;EntityComponents[nextEntity]|=name;name##_Arr[nextEntity]=(name##_CompType)__VA_ARGS__
+#define with(name,...) ;EntityComponents[nextEntity]|=name;_##name##_Arr[nextEntity]=(name##_CompType)__VA_ARGS__
 #define is(name) ;EntityComponents[nextEntity]|=name
-#define addComp(entity,comp,...) EntityComponents[entity]|=comp;comp##_Arr[entity]=(comp##_CompType)__VA_ARGS__
+#define addComp(entity,comp,...) EntityComponents[entity]|=comp;_##comp##_Arr[entity]=(comp##_CompType)__VA_ARGS__
 #define addProp(entity,comp) EntityComponents[entity]|=comp;
 #define removeComp(entity,comp) EntityComponents[entity]&=~comp
-#define getComp(entity,comp) comp##_Arr[entity]
-#define usingComp(comp,name) comp##_CompType name=comp##_Arr[id]
-#define usingComp2(comp,name) comp##_CompType name##2=comp##_Arr[id2]
-#define usingComp3(comp,name) comp##_CompType name##3=comp##_Arr[id3]
-#define usingMutComp(comp,name) comp##_CompType *name=&comp##_Arr[id]
-#define usingMutComp2(comp,name) comp##_CompType *name##2=&comp##_Arr[id2]
-#define usingMutComp3(comp,name) comp##_CompType *name##3=&comp##_Arr[id3]
+#define getComp(entity,comp) _##comp##_Arr[entity]
+#define usingComp(comp,name) comp##_CompType name=_##comp##_Arr[id]
+#define usingComp2(comp,name) comp##_CompType name##2=_##comp##_Arr[id2]
+#define usingComp3(comp,name) comp##_CompType name##3=_##comp##_Arr[id3]
+#define usingMutComp(comp,name) comp##_CompType *name=&_##comp##_Arr[id]
+#define usingMutComp2(comp,name) comp##_CompType *name##2=&_##comp##_Arr[id2]
+#define usingMutComp3(comp,name) comp##_CompType *name##3=&_##comp##_Arr[id3]
 #define hasComp(entity,comp) (EntityComponents[entity]&comp)
 #define entityHas(entity,...) ((EntityComponents[entity]&Query(__VA_ARGS__))==Query(__VA_ARGS__))
-#define Iter(...) unsigned int query=Query(__VA_ARGS__);for(unsigned int id=0;id<nextEntity+1;id++)if(Entities[id]&&((EntityComponents[id]&query)==query))
-#define Iter2() for(unsigned int id2=id+1;id2<nextEntity+1;id2++)if(Entities[id2]&&((EntityComponents[id2]&query)==query))
-#define Iter3() for(unsigned int id3=id2+1;id3<nextEntity+1;id3++)if(Entities[id3]&&((EntityComponents[id3]&query)==query))
-#define UniqIter(...) unsigned int query=Query(__VA_ARGS__);unsigned int id=-1u;for(id=0;id<nextEntity+1;id++)if(Entities[id]&&((EntityComponents[id]&query)==query))break;if(id!=-1u)
+#define Iter(...) unsigned int _query=Query(__VA_ARGS__);for(unsigned int id=0;id<nextEntity+1;id++)if(Entities[id]&&((EntityComponents[id]&_query)==_query))
+#define Iter2() for(unsigned int id2=id+1;id2<nextEntity+1;id2++)if(Entities[id2]&&((EntityComponents[id2]&_query)==_query))
+#define Iter3() for(unsigned int id3=id2+1;id3<nextEntity+1;id3++)if(Entities[id3]&&((EntityComponents[id3]&_query)==_query))
+#define UniqIter(...) unsigned int _query=Query(__VA_ARGS__);unsigned int id=-1u;for(id=0;id<nextEntity+1;id++)if(Entities[id]&&((EntityComponents[id]&_query)==_query))break;if(id!=-1u)
 #pragma pack()
