@@ -22,7 +22,7 @@ static unsigned int EntityComponents[MAX_ENTITIES]={};
 #define newCompStruct(name,...) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}typedef struct __VA_ARGS__ name##_CompType;static name##_CompType name##_Arr[MAX_ENTITIES]
 #define newComp(name,type) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}typedef type name##_CompType;static name##_CompType name##_Arr[MAX_ENTITIES]
 #define newProp(name) static unsigned char name;__attribute__((constructor)) void __##name##Setup(void){name=numComponents;numComponents<<=1u;}
-#define newEntity() nextEntity++;Entities[nextEntity]=1u
+#define newEntity() ++nextEntity;Entities[nextEntity]=1u
 #define removeEntity(e) Entities[e]=0u
 #define with(name,...) ;EntityComponents[nextEntity]|=name;name##_Arr[nextEntity]=(name##_CompType)__VA_ARGS__
 #define is(name) ;EntityComponents[nextEntity]|=name
