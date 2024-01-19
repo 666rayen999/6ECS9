@@ -1,23 +1,34 @@
 # 6ECS9
+
 single header ecs library written in pure c (c99)
+
 DA FASTEST
+
 #### Features:
+
 - Written in C99
 - Single Header Library
 - Fast ASF
 - Pure ECS Design
 - Simple
 - No Dependencies
+
 #### How to use:
+
 ```c
 #define MAX_ENTITIES 100 (default: 64)
 #define MAX_COMPONENTS 10 (default: 32)
 #include "6ecs9.h"
 ```
+
 #### Important:
+
 for now the maximum components can be used is 64
+
 ima work on it to handle more than 64
+
 #### Example:
+
 ```c
 #define MAX_ENTITIES 10
 #define MAX_COMPONENTS 4
@@ -81,15 +92,22 @@ int main(void)
 ```
 
 ## you woudnt find library better den dis 
+
 go look at dis [benchmark](https://github.com/abeimler/ecs_benchmark)
-you gon find that PicoECS is the fastest the most of the time
+
+you gon find that PicoECS is the fastest most of the time
+
 i did sum benchmarks
+
 6ecs9 is 2.5x faster than PicoECS
 
 #### benchmark:
 creating N entities
+
 creating 2 components (position, velocity)
+
 adding random components on each entity, some with position, and some with velocity, sum with both
+
 adding 2 systems (random, movement)
 
 - random: giving each entity random velocity
@@ -98,14 +116,25 @@ adding 2 systems (random, movement)
 removing all entities
 
 for 256 entity:
+
 `6ecs9: 13μs` `picoECS: 37μs`
+
 for 1024 entity:
+
 `6ecs9: 44μs` `picoECS: 190μs`
+
 for 4096 entity:
+
 `6ecs9: 170μs` `picoECS: 517μs`
+
 for 1M entity:
+
 `6ecs9: 41.86ms` `picoECS: 124.19ms`
+
 for 16M entity:
+
 `6ecs9: 580.98ms` `picoECS: 1415.43ms`
+
 for 67M entity:
+
 `6ecs9: 2.67s` `picoECS: 6.82s`
