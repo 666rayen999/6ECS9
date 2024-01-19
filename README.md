@@ -85,3 +85,27 @@ go look at dis [benchmark](https://github.com/abeimler/ecs_benchmark)
 you gon find that PicoECS is the fastest the most of the time
 i did sum benchmarks
 6ecs9 is 2.5x faster than PicoECS
+
+#### benchmark:
+creating N entities
+creating 2 components (position, velocity)
+adding random components on each entity, some with position, and some with velocity, sum with both
+adding 2 systems (random, movement)
+
+- random: giving each entity random velocity
+- movement: moving position by velocity
+
+removing all entities
+
+for 256 entity:
+`6ecs9: 13μs` `picoECS: 37μs`
+for 1024 entity:
+`6ecs9: 44μs` `picoECS: 190μs`
+for 4096 entity:
+`6ecs9: 170μs` `picoECS: 517μs`
+for 1M entity:
+`6ecs9: 41.86ms` `picoECS: 124.19ms`
+for 16M entity:
+`6ecs9: 580.98ms` `picoECS: 1415.43ms`
+for 67M entity:
+`6ecs9: 2.67s` `picoECS: 6.82s`
